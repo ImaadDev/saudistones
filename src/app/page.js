@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 
 export default function LandingPage() {
   const [scrollY, setScrollY] = useState(0);
@@ -17,11 +18,58 @@ export default function LandingPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert("شكراً لك! سيتواصل معك فريقنا قريباً.");
-    setFormData({ name: "", phone: "", email: "", service: "", message: "" });
+
+    // Validate required fields
+    if (!formData.name || !formData.email || !formData.message) {
+      alert("Please fill all required fields");
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      alert("Please enter a valid email");
+      return;
+    }
+
+    const templateParams = {
+      title: "New Contact Form Submission",
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone || "N/A",
+      service: formData.service || "N/A",
+      message: formData.message,
+    };
+
+    try {
+      const response = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+      );
+
+      if (response.status === 200) {
+        console.log("SUCCESS!", response.status, response.text);
+        alert("✅ Message sent successfully!");
+        setFormData({
+          name: "",
+          phone: "",
+          email: "",
+          service: "",
+          message: "",
+          title: "New Contact Form Submission",
+        });
+      } else {
+        console.error("EmailJS response error:", response);
+        alert("❌ Failed to send. Please try again later.");
+      }
+    } catch (error) {
+      console.error("FAILED...", error);
+      alert("❌ Failed to send. Please try again later.");
+    }
   };
 
   return (
