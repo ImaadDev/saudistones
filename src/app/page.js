@@ -506,7 +506,7 @@ export default function LandingPage() {
               <p>
                 الإدارة:{" "}
                 <a
-                  href="tel:0500229879"
+                  href="tel:+966509502502"
                   className="text-yellow-400 hover:text-yellow-300"
                 >
                   0500229879
