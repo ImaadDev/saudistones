@@ -2,6 +2,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import ClientTracker from "../components/ClientTracker"; // GA pageview tracker
+import CallButton from "../components/CallButton";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -50,6 +51,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${montserrat.variable} font-sans antialiased`}>
         <ClientTracker /> {/* Handles GA pageview tracking */}
+        <CallButton />
         {children}
       </body>
     </html>
