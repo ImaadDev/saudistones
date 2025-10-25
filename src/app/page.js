@@ -120,6 +120,26 @@ export default function LandingPage() {
               />
             </svg>
           </a>
+          <a
+            href="tel:+966509502502"
+            className="group mx-4 relative inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 transition-all duration-300 px-10 py-4 rounded-full font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 animate-fade-in opacity-0"
+            style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
+          >
+            📞 اتصل بنا واحصل على استشارة مجانية
+            <svg
+              className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </a>
         </div>
 
         <div className="absolute bottom-10 animate-bounce">
