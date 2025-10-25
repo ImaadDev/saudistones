@@ -1,7 +1,7 @@
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
-import ClientTracker from "../components/ClientTracker"; // new client component for GA
+import ClientTracker from "../components/ClientTracker"; // GA pageview tracker
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -33,9 +33,23 @@ export default function RootLayout({ children }) {
             });
           `}
         </Script>
+
+        {/* Global Site Tag (gtag.js) - Google Ads */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-952808705"
+        />
+        <Script id="google-ads-tag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-952808705');
+          `}
+        </Script>
       </head>
       <body className={`${montserrat.variable} font-sans antialiased`}>
-        <ClientTracker /> {/* Handles pageview tracking */}
+        <ClientTracker /> {/* Handles GA pageview tracking */}
         {children}
       </body>
     </html>
